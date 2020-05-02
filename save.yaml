@@ -1,0 +1,26 @@
+--- !ruby/object:Hangman
+secret_word: !ruby/object:Dictionary
+  word: unperceived
+  length: 11
+length: 11
+player: !ruby/object:Player
+  name: Ben
+  guesses: 7
+hidden_word:
+- u
+- n
+- p
+- e
+- r
+- _
+- e
+- i
+- v
+- e
+- d
+game_over: false
+previous_guesses:
+- a
+- g
+- o
+turn: 12

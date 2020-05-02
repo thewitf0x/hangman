@@ -1,9 +1,12 @@
 require "./dict.rb"
 require "./player.rb"
+require "./save_load.rb"
+require "yaml"
 
 class Hangman
-  attr_reader :secret_word, :length, :ui, :previous_guesses, :game_over
-  attr_accessor :hidden_word #delete this once the game works!
+  include Save_load
+
+  attr_accessor :hidden_word, :player, :secret_word, :length, :previous_guesses, :game_over, :turn
 
   def initialize
     @secret_word = Dictionary.new
@@ -119,5 +122,30 @@ class Hangman
 
   def you_lose
     puts "Bad luck, #{@player.name}. You lose! The word was #{@secret_word.word}\n"
+  end
+
+  def ask_to_save
+    puts "Do you want to save? y/n"
+    answer = gets.chomp.downcase
+    if answer == "y"
+      self.save
+      puts "\nGame saved!\n"
+      sleep 1
+    else
+      return
+    end
+  end
+
+  def ask_to_load
+    puts "Do you want to load a previous game? y/n"
+    answer = gets.chomp.downcase
+    if answer == "y"
+      self.load
+      puts "\nGame loaded! You can keep playing.\n"
+      sleep 1
+      show_partial()
+    else
+      return
+    end
   end
 end
